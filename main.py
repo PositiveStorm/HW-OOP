@@ -48,6 +48,7 @@ class Lecturer(Mentor):
         self.rate = {}
         self.avg_rate = float()
 
+
     def __str__(self):
         for course in self.rate:
             avg_rate = sum(self.rate[course]) / len(self.rate[course])
@@ -119,15 +120,25 @@ cool_reviewer1.rate_hw(best_student1, 'Python', 9)
 best_student1.rate_lecturer(cool_lecturer, 'Python', 10)
 best_student1.rate_lecturer(cool_lecturer, 'Python', 7)
 best_student1.rate_lecturer(cool_lecturer, 'Python', 5)
+cool_lecturer1 = Lecturer('Mona', 'Mia')
+cool_lecturer1.courses_in_progress += ['Python']
+best_student1.rate_lecturer(cool_lecturer1, 'Python', 5)
+best_student1.rate_lecturer(cool_lecturer1, 'Python', 10)
+best_student1.rate_lecturer(cool_lecturer1, 'Python', 9)
 print(best_student1.grades)
 print()
 
 print(cool_lecturer.rate)
 print()
+print(cool_lecturer1.rate)
+print()
 print(cool_reviewer)
+print()
 print(cool_reviewer1)
 print()
 print(cool_lecturer)
+print()
+print(cool_lecturer1)
 print()
 print(best_student)
 print()
