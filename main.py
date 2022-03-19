@@ -19,6 +19,7 @@ class Student:
         else:
             return 'Ошибка'
 
+
     def __lt__(self, other):
         if not isinstance(other, Student):
             return
@@ -29,10 +30,7 @@ class Student:
         for course in self.grades:
             self.avg_grade = round(sum(self.grades[course]) / len(self.grades[course]), 1)
             break
-
-
-
-        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за дз: {self.avg_grade} \nКурсы в процессе изучения: {str(self.courses_in_progress)[1:-1]} \nЗавершенные курсы: {str(self.finished_courses)[1:-1]}'
+        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за дз: {self.avg_grade} \nКурсы в процессе изучения: {", ".join(self.courses_in_progress)} \nЗавершенные курсы: {", ".join(self.finished_courses)}'
         return text
 
 class Mentor:
@@ -61,8 +59,6 @@ class Lecturer(Mentor):
         for course in self.rate:
             self.avg_rate = sum(self.rate[course]) / len(self.rate[course])
             break
-
-
         text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за лекции: {self.avg_rate}'
         return text
 
@@ -89,8 +85,25 @@ class Reviewer(Mentor):
         return text
 
 
+def avg_st(student_list, course):
+    sum_grades = 0
+    counter = 0
+    for student in students_list:
+        if course in student.grades:
+            sum_grades += sum(student.grades[course]) / len(student.grades[course])
+            counter += 1
+    return round(sum_grades / counter, 2)
 
-best_student = Student('Ruoy', 'Eman', 'your_gender')
+def avg_lect(lecturers_list, course):
+    sum_rates = 0
+    counter = 0
+    for lecturer in lecturers_list:
+        if course in lecturer.rate:
+            sum_rates += sum(lecturer.rate[course]) / len(lecturer.rate[course])
+            counter += 1
+    return round(sum_rates / counter, 2)
+
+best_student = Student('Ruoy', 'Eman', 'male')
 best_student.courses_in_progress += ['Python']
 best_student.courses_in_progress += ['Git']
 best_student.finished_courses += ['Введение в программирование']
@@ -159,7 +172,8 @@ print()
 print(cool_lecturer < cool_lecturer1)
 print()
 
+students_list = [best_student, best_student1]
+print(avg_st(students_list, 'Python'))
 
-
-
-
+lecturers_list = [cool_lecturer, cool_lecturer1]
+print(avg_lect(lecturers_list, 'Python'))
