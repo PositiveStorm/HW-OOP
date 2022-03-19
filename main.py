@@ -19,16 +19,20 @@ class Student:
         else:
             return 'Ошибка'
 
+    def __lt__(self, other):
+        if not isinstance(other, Student):
+            return
+        return self.avg_grade < other.avg_grade
 
     def __str__(self):
 
         for course in self.grades:
-            avg_grade = round(sum(self.grades[course]) / len(self.grades[course]), 1)
+            self.avg_grade = round(sum(self.grades[course]) / len(self.grades[course]), 1)
             break
 
 
 
-        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за дз: {avg_grade} \nКурсы в процессе изучения: {str(self.courses_in_progress)[1:-1]} \nЗавершенные курсы: {str(self.finished_courses)[1:-1]}'
+        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за дз: {self.avg_grade} \nКурсы в процессе изучения: {str(self.courses_in_progress)[1:-1]} \nЗавершенные курсы: {str(self.finished_courses)[1:-1]}'
         return text
 
 class Mentor:
@@ -48,15 +52,21 @@ class Lecturer(Mentor):
         self.rate = {}
         self.avg_rate = float()
 
+    def __lt__(self, other):
+        if not isinstance(other, Lecturer):
+            return
+        return self.avg_rate < other.avg_rate
 
     def __str__(self):
         for course in self.rate:
-            avg_rate = sum(self.rate[course]) / len(self.rate[course])
+            self.avg_rate = sum(self.rate[course]) / len(self.rate[course])
             break
 
 
-        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за лекции: {avg_rate}'
+        text = f'Имя: {self.name} \nФамилия: {self.surname} \nСредняя оценка за лекции: {self.avg_rate}'
         return text
+
+
 
 class Reviewer(Mentor):
     def __init__(self, name, surname):
@@ -143,7 +153,11 @@ print()
 print(best_student)
 print()
 print(best_student1)
-
+print()
+print(best_student < best_student1)
+print()
+print(cool_lecturer < cool_lecturer1)
+print()
 
 
 
